@@ -1,0 +1,15 @@
+eg_profile_name:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('PFRY_DEMO_SNOWFLAKE_ACCOUNT') }}"
+      role: "{{ env_var('PFRY_DEMO_DBT_ROLE') }}"
+      user: "{{ env_var('PFRY_DEMO_DBT_USER') }}"
+      password: "{{ env_var('PFRY_DEMO_DBT_PASS') }}"
+
+      database: "{{ env_var('PFRY_DEMO_DB') }}"
+      warehouse: "{{ env_var('PFRY_DEMO_WH') }}"
+      schema: "{{ env_var('PFRY_DEMO_SCHEMA') }}"
+      threads: 4
+      client_session_keep_alive: False
