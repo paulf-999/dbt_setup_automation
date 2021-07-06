@@ -13,6 +13,8 @@ The steps involved in building and executing involve:
     * and `DBT_MODEL`
 2) and running `make`!
 
+---
+
 ### High-level summary
 
 A `makefile` has been used to orchestrate the steps required to create setup a DBT project. Where these steps consist of:
