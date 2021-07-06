@@ -2,6 +2,17 @@
 
 Script to automate the setup steps required when initially creating a DBT project.
 
+### How-to run:
+
+The steps involved in building and executing involve:
+
+1) Populate the 4 variables at the top of the makefile, i.e.:
+    * `DBT_PROFILE_NAME`
+    * `DBT_PROJECT_NAME`
+    * `PROGRAM`
+    * and `DBT_MODEL`
+2) and running `make`!
+
 ### High-level summary
 
 A `makefile` has been used to orchestrate the steps required to create setup a DBT project. Where these steps consist of:
@@ -18,17 +29,6 @@ A `makefile` has been used to orchestrate the steps required to create setup a D
     * the file created in step 2 needs to be configured
     * this step automates the configuration, using templates and parameterized args
 4) Validate the database connection
-
-### How-to run:
-
-The steps involved in building and executing involve:
-
-1) Populate the 4 variables at the top of the makefile, i.e.:
-    * `DBT_PROFILE_NAME`
-    * `DBT_PROJECT_NAME`
-    * `PROGRAM`
-    * and `DBT_MODEL`
-2) and running `make`!
 
 ### Note:
 
