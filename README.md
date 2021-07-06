@@ -6,8 +6,8 @@ Script to automate the setup steps required when initially creating a DBT projec
 
 A `makefile` has been used to orchestrate the steps required to create setup a DBT project. Where these steps consist of:
 
-1) Install DBT using brew
-2) Initialise DBT project (`dbt_project.yml`), including steps to:
+1) Installing DBT using brew (if required)
+2) Initialising a DBT project (`dbt_project.yml`), including steps to:
     * populating parameterized args
     * copy predefined:
         - DBT profiles (`profiles.yml`)
@@ -33,7 +33,3 @@ The steps involved in building and executing involve:
 ### Note:
 
 * The sql files within `models/analytics_db` are just examples, to indicate the typical contents of such files
-
-### To do:
-
-* describe purpose and how/where the populate 4 variables at top of makefile
