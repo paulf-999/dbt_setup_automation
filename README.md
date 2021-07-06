@@ -28,8 +28,7 @@ The steps involved in building and executing involve:
     * `DBT_PROJECT_NAME`
     * `PROGRAM`
     * and `DBT_MODEL`
-1) Updating the input parameters within `env/env.json`
-2) and run `make`!
+2) and running `make`!
 
 ### Note:
 
