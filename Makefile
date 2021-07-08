@@ -21,14 +21,14 @@ init_dbt_project:
 	@echo
 	@[ "${DBT_PROJECT_NAME}" ] || ( echo "\nError: DBT_PROJECT_NAME variable is not set\n"; exit 1 )
 	@[ "${DBT_PROFILE_NAME}" ] || ( echo "\nError: DBT_PROFILE_NAME variable is not set\n"; exit 1 )
-	@#populate profiles/profiles.yml with ${DBT_PROFILE_NAME} var
+	# populate profiles/profiles.yml with ${DBT_PROFILE_NAME} var
 	@envsubst < templates/profiles.yml > profiles/profiles.yml
 	@dbt init ${DBT_PROJECT_NAME} --profiles-dir=profiles 2>/dev/null
-	@#copy profiles and model dirs into project folder
+	# copy profiles and model dirs into project folder
 	@cp -r profiles/ ${DBT_PROJECT_NAME}/profiles
 	@cp -r models/ ${DBT_PROJECT_NAME}/models
 	@cp -r tests/ ${DBT_PROJECT_NAME}/models
-	@#copy schema.yml (data model tests) to project folder
+	# copy schema.yml (data model tests) to project folder
 	@cp schema.yml ${DBT_PROJECT_NAME}/models
 	@rm -r ${DBT_PROJECT_NAME}/models/example
 	###############################################################
@@ -39,7 +39,7 @@ init_dbt_project:
 setup_dbt_project_file:
 	$(info [+] generate profiles.yml inside project folder file)
 	@echo
-	@#change profile name in dbt_project.yml file
+	# change profile name in dbt_project.yml file
 	@sed -i -e "s/profile: 'default'/profile: '${DBT_PROFILE_NAME}'/g" ${DBT_PROJECT_NAME}/dbt_project.yml
 	@#change project name in dbt_project.yml file
 	@sed -i -e 's/my_new_project/${DBT_PROJECT_NAME}/g' ${DBT_PROJECT_NAME}/dbt_project.yml
