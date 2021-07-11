@@ -1,9 +1,9 @@
-default: init_dbt_project setup_dbt_project_file validate_conn
+default: init_dbt_project validate_conn
 
 export DBT_PROFILE_NAME=#e.g., eg_profile_name
 export DBT_PROJECT_NAME=#e.g., dbt_demo_eg
-export PROGRAM=#e.g., JBLOGGS_DEMO
 export DBT_MODEL=#e.g., analytics_db
+export PROGRAM=#e.g., JBLOGGS_DEMO
 
 deps:
 	$(info [+] Install dependencies (dbt))
@@ -36,29 +36,20 @@ init_dbt_project:
 	###############################################################
 	@echo
 
-setup_dbt_project_file:
-	$(info [+] generate profiles.yml inside project folder file)
-	@echo
-	# change profile name in dbt_project.yml file
-	@sed -i -e "s/profile: 'default'/profile: '${DBT_PROFILE_NAME}'/g" ${DBT_PROJECT_NAME}/dbt_project.yml
-	@#change project name in dbt_project.yml file
-	@sed -i -e 's/my_new_project/${DBT_PROJECT_NAME}/g' ${DBT_PROJECT_NAME}/dbt_project.yml
-	@rm ${DBT_PROJECT_NAME}/dbt_project.yml-e
-
 validate_conn:
 	cd ${DBT_PROJECT_NAME} && dbt debug --profiles-dir=profiles
 
 run_model:
-	cd ${DBT_PROJECT_NAME} && dbt run --profiles-dir profiles --models ${DBT_MODEL}
+	cd ${DBT_PROJECT_NAME} && dbt run --profiles-dir profiles --models ${DBT_PROJECT_NAME}.${DBT_MODEL}
 
 test_model:
-	#prerequisite: populate ${DBT_PROJECT_NAME}/models/schema.yml with any desired tests
-	cd ${DBT_PROJECT_NAME} && dbt test --profiles-dir profiles --models ${DBT_MODEL_NAME}
+	# prerequisite: populate ${DBT_PROJECT_NAME}/models/schema.yml with any desired tests
+	cd ${DBT_PROJECT_NAME} && dbt test --profiles-dir profiles --models ${DBT_PROJECT_NAME}.${DBT_MODEL}
 
 data_test_model:
-	#prerequisite: populate ${DBT_PROJECT_NAME}/models/schema.yml with any desired tests
-	cd ${DBT_PROJECT_NAME} && dbt test --data --profiles-dir profiles --models ${DBT_MODEL_NAME}
+	# prerequisite: populate ${DBT_PROJECT_NAME}/models/schema.yml with any desired tests
+	cd ${DBT_PROJECT_NAME} && dbt test --data --profiles-dir profiles --models ${DBT_PROJECT_NAME}.${DBT_MODEL}
 
 document_model:
-	cd ${DBT_PROJECT_NAME} && dbt docs generate --profiles-dir profiles --models ${DBT_MODEL_NAME}
+	cd ${DBT_PROJECT_NAME} && dbt docs generate --profiles-dir profiles --models ${DBT_PROJECT_NAME}.${DBT_MODEL}
 	cd ${DBT_PROJECT_NAME} && dbt docs serve --profiles-dir profiles
