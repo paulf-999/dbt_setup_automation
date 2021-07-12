@@ -40,16 +40,16 @@ validate_conn:
 	cd ${DBT_PROJECT_NAME} && dbt debug --profiles-dir=profiles
 
 run_model:
-	cd ${DBT_PROJECT_NAME} && dbt run --profiles-dir profiles --models ${DBT_PROJECT_NAME}.${DBT_MODEL}
+	cd ${DBT_PROJECT_NAME} && dbt run --profiles-dir profiles --models ${DBT_MODEL}
 
 test_model:
 	# prerequisite: populate ${DBT_PROJECT_NAME}/models/schema.yml with any desired tests
-	cd ${DBT_PROJECT_NAME} && dbt test --profiles-dir profiles --models ${DBT_PROJECT_NAME}.${DBT_MODEL}
+	cd ${DBT_PROJECT_NAME} && dbt test --profiles-dir profiles --models ${DBT_MODEL}
 
 data_test_model:
 	# prerequisite: populate ${DBT_PROJECT_NAME}/models/schema.yml with any desired tests
-	cd ${DBT_PROJECT_NAME} && dbt test --data --profiles-dir profiles --models ${DBT_PROJECT_NAME}.${DBT_MODEL}
+	cd ${DBT_PROJECT_NAME} && dbt test --data --profiles-dir profiles --models ${DBT_MODEL}
 
 document_model:
-	cd ${DBT_PROJECT_NAME} && dbt docs generate --profiles-dir profiles --models ${DBT_PROJECT_NAME}.${DBT_MODEL}
+	cd ${DBT_PROJECT_NAME} && dbt docs generate --profiles-dir profiles --models ${DBT_MODEL}
 	cd ${DBT_PROJECT_NAME} && dbt docs serve --profiles-dir profiles
