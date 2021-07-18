@@ -39,6 +39,21 @@ A `makefile` has been used to orchestrate the steps required to create setup a D
 
 ## Prerequisites
 
+### Makefile variables
+
+To run the automation script, the 4 variables (below) at the top of the `Makefile` need to be assigned values. The purpose of these variables is as follows:
+
+
+| Variable | Description                  | Example |
+| -------| -----------------------------| --- |
+| DBT_PROFILE_NAME | The name of the profile to use, containing the details required to connect to your data warehouse. Will be used to populate `profiles.yml`. | `eg_client_project_non_prod` |
+| DBT_PROJECT_NAME | The name you wish to use for your DBT project. A dbt project is a directory of `.sql` and `.yml` files, which dbt uses to transform your data. | `eg_project` |
+| DBT_MODEL | * Typically aligns to the name of your target database.<br/>* Models are defined in `.sql` files, typically in the `models` directory)<br/>* Note: this must be lowercase and hyphens, spaces or underscores aren't allowed for this value | `curated_db` |
+| PROGRAM | * Accronym to describe the program of work<br/>* Used extensively to prefix DB/account objects<br/>* Note: hyphens, spaces or underscores aren't allowed for this value | `DFP` <br/>(accronym for 'Data Foundations Project') |
+
+
+### Python packages
+
 Some Python packages are required, but are listed within the `Makefile` deps. To install these, run: `Make deps`.
 
 These prerequisites are:
