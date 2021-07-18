@@ -43,7 +43,7 @@ Some Python packages are required, but are listed within the `Makefile` deps. To
 
 These prerequisites are:
 
-| Folder | Description                  |
+| Package | Description                  |
 | -------| -----------------------------|
 | dbt | To install the DBT package itself.<br/>Note: the upgrade command is required to install the latest version of DBT. |
 | gettext | Used within the `Makefile` recipe 'setup_dbt_project_file', to perform a `sed` find and replace command |
