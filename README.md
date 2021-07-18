@@ -13,7 +13,7 @@ Script to automate the setup steps required when initially creating a DBT projec
 3. Additional info
     * Custom database schemas
     * Custom data model config setting
-    * Data model, 'models/analytics_db'
+    * Note: data model, 'models/analytics_db' is just an example
 ---
 
 ## 1. High-level summary
