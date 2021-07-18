@@ -37,6 +37,15 @@ init_dbt_project:
 	###############################################################
 	@echo
 
+setup_dbt_project_file:
+	$(info [+] generate profiles.yml inside project folder file)
+	@echo
+	# change profile name in dbt_project.yml file
+	@sed -i -e "s/profile: 'default'/profile: '${DBT_PROFILE_NAME}'/g" ${DBT_PROJECT_NAME}/dbt_project.yml
+	# change project name in dbt_project.yml file
+	@sed -i -e 's/my_new_project/${DBT_PROJECT_NAME}/g' ${DBT_PROJECT_NAME}/dbt_project.yml
+	@rm ${DBT_PROJECT_NAME}/dbt_project.yml-e
+
 validate_conn:
 	$(info [+] Verify the connection to the source DB)
 	cd ${DBT_PROJECT_NAME} && dbt debug --profiles-dir=profiles
