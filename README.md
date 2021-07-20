@@ -51,7 +51,6 @@ To run the automation script, the 4 variables (below) at the top of the `Makefil
 | DBT_MODEL | * Typically aligns to the name of your target database.<br/>* Models are defined in `.sql` files, typically in the `models` directory)<br/>* Note: this must be lowercase and hyphens, spaces or underscores aren't allowed for this value | `curated_db` |
 | PROGRAM | * Accronym to describe the program of work<br/>* Used extensively to prefix DB/account objects<br/>* Note: hyphens, spaces or underscores aren't allowed for this value | `DFP` <br/>(accronym for 'Data Foundations Project') |
 
-
 ### Python packages
 
 Some Python packages are required, but are listed within the `Makefile` deps. To install these, run: `Make deps`.
@@ -61,8 +60,8 @@ These prerequisites are:
 | Package | Description                  |
 | -------| -----------------------------|
 | dbt | To install the DBT package itself.<br/>Note: the upgrade command is required to install the latest version of DBT. |
-| gettext | Used within the `Makefile` recipe 'setup_dbt_project_file', to perform a `sed` find and replace command |
-| gnu-sed | Similar to the above, this is used within the `Makefile` recipe 'setup_dbt_project_file', to perform a `sed` find and replace command |
+| gettext | Used within the `Makefile` target 'setup_dbt_project_file', to perform a `sed` find and replace command |
+| gnu-sed | Similar to the above, this is used within the `Makefile` target 'setup_dbt_project_file', to perform a `sed` find and replace command |
 
 ### How-to run
 
