@@ -73,4 +73,8 @@ test_and_build:
 	$(info [+] Test then if successful, build the DBT model)
 	cd ${DBT_PROJECT_NAME} && dbt test --data --profiles-dir profiles --models ${DBT_MODEL}
 	# following successful DBT tests, then run the DBT model
-	cd ${DBT_PROJECT_NAME} && dbt run --profiles-dir profiles --models analytics_db
+	cd ${DBT_PROJECT_NAME} && dbt run --profiles-dir profiles --models ${DBT_MODEL}
+
+refresh_ext_tbls:
+	$(info [+] Refresh the ext tables)
+	cd ${DBT_PROJECT_NAME} && dbt run-operation stage_external_sources --profiles-dir profiles --models raw_db --vars 'ext_full_refresh: true'
