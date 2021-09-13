@@ -25,16 +25,13 @@ init_dbt_project:
 	@envsubst < templates/profiles.yml > profiles/profiles.yml
 	@dbt init ${DBT_PROJECT_NAME} --profiles-dir=profiles 2>/dev/null
 	# copy profiles and model dirs into project folder
-	@cp -r profiles/ ${DBT_PROJECT_NAME}/profiles
+	@cp -r profiles/ ${DBT_PROJECT_NAME}
 	@cp -r models/ ${DBT_PROJECT_NAME}/models
 	@cp -r tests/ ${DBT_PROJECT_NAME}/tests
 	@cp -r macros/ ${DBT_PROJECT_NAME}/macros
 	# copy schema.yml (data model tests) to project folder
 	@cp schema.yml ${DBT_PROJECT_NAME}/models/
 	@rm -r ${DBT_PROJECT_NAME}/models/example
-	###############################################################
-	# call 'setup_dbt_project_file'
-	###############################################################
 	@echo
 
 setup_dbt_project_file:
