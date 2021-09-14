@@ -13,7 +13,6 @@ sources:
     database: bikestores_raw_db
     schema: sales
     tables:
-      - name: categories
       - name: customers
       - name: orders
       - name: order_items

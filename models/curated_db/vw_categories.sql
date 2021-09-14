@@ -1,1 +1,1 @@
-SELECT * FROM {{ source('bike_sales', 'categories') }}
+SELECT * FROM {{ source('bike_production', 'categories') }}
