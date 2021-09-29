@@ -2,7 +2,7 @@ SELECT order_items.order_id
         , products.product_id
         , stores.store_id
         , staffs.staff_id
-        , products.product_name        
+        , products.product_name
         , order_date
         , required_date
         , shipped_date
