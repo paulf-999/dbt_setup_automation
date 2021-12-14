@@ -1,14 +1,10 @@
 all: init_dbt_project setup_dbt_project_file validate_conn
 
-CONFIG_FILE=envvars.json
-########################################
-# fetch inputs from config (json) file
-########################################
-# airflow args
-$(eval DBT_PROFILE_NAME=$(shell jq '.DBT_PROFILE_NAME' ${CONFIG_FILE})) #e.g., eg_profile_name
-$(eval DBT_PROJECT_NAME=$(shell jq '.DBT_PROJECT_NAME' ${CONFIG_FILE})) #e.g., dbt_demo_eg
-$(eval DBT_MODEL=$(shell jq '.DBT_MODEL' ${CONFIG_FILE})) #e.g., curated_db
-$(eval PROGRAM=$(shell jq '.PROGRAM' ${CONFIG_FILE})) #e.g., JBLOGGS_DEMO
+# airflow input args
+export DBT_PROFILE_NAME=#e.g., eg_profile_name
+export DBT_PROJECT_NAME=#e.g., dbt_demo_eg
+export DBT_MODEL=#e.g., curated_db
+export PROGRAM=#e.g., DBT_DEMO_EG
 
 deps:
 	$(info [+] Install dependencies (dbt))
@@ -17,6 +13,7 @@ deps:
 	brew link --force gettext
 	brew install gnu-sed
 	brew install jq
+	pip install envsubst
 
 init_dbt_project:
 	$(info [+] Initialise dbt project)
