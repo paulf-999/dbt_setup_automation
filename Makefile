@@ -49,6 +49,10 @@ setup_dbt_project_file:
 	@sed -i -e 's/my_new_project/${DBT_PROJECT_NAME}/g' ${DBT_PROJECT_NAME}/dbt_project.yml
 	@rm ${DBT_PROJECT_NAME}/dbt_project.yml-e
 
+ins_sub_projects:
+	$(info [+] Install 'child' dbt projects)
+	@cd ${DBT_PROJECT_NAME} && dbt deps --profiles-dir=profiles
+
 validate_conn:
 	$(info [+] Verify the connection to the source DB)
 	cd ${DBT_PROJECT_NAME} && dbt debug --profiles-dir=profiles
