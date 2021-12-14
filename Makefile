@@ -1,4 +1,4 @@
-all: init_dbt_project setup_dbt_project_file validate_conn
+all: init_dbt_project setup_dbt_project_file validate_conn copy_dbt_project_files
 
 # airflow input args
 export DBT_PROFILE_NAME=#e.g., eg_profile_name
