@@ -1,9 +1,14 @@
 all: init_dbt_project setup_dbt_project_file validate_conn
 
-export DBT_PROFILE_NAME=#e.g., eg_profile_name
-export DBT_PROJECT_NAME=#e.g., dbt_demo_eg
-export DBT_MODEL=#e.g., curated_db
-export PROGRAM=#e.g., JBLOGGS_DEMO
+CONFIG_FILE=envvars.json
+########################################
+# fetch inputs from config (json) file
+########################################
+# airflow args
+$(eval DBT_PROFILE_NAME=$(shell jq '.DBT_PROFILE_NAME' ${CONFIG_FILE})) #e.g., eg_profile_name
+$(eval DBT_PROJECT_NAME=$(shell jq '.DBT_PROJECT_NAME' ${CONFIG_FILE})) #e.g., dbt_demo_eg
+$(eval DBT_MODEL=$(shell jq '.DBT_MODEL' ${CONFIG_FILE})) #e.g., curated_db
+$(eval PROGRAM=$(shell jq '.PROGRAM' ${CONFIG_FILE})) #e.g., JBLOGGS_DEMO
 
 deps:
 	$(info [+] Install dependencies (dbt))
@@ -11,6 +16,7 @@ deps:
 	brew install gettext
 	brew link --force gettext
 	brew install gnu-sed
+	brew install jq
 
 init_dbt_project:
 	$(info [+] Initialise dbt project)
@@ -46,6 +52,12 @@ setup_dbt_project_file:
 validate_conn:
 	$(info [+] Verify the connection to the source DB)
 	cd ${DBT_PROJECT_NAME} && dbt debug --profiles-dir=profiles
+
+copy_dbt_project_files:
+	$(info [+] Copy generated dbt project files to parent 'dbt' folder)
+	@cp -r ${DBT_PROJECT_NAME} ../../
+	@rm -r ${DBT_PROJECT_NAME}
+	@rm -r ../../${DBT_PROJECT_NAME}/dbt_sub_projects
 
 run_model:
 	$(info [+] Run the DBT model)
