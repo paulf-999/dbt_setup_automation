@@ -18,13 +18,13 @@ Script to automate the setup steps required when initially creating a DBT projec
 
 ## 1. High-level summary
 
-A `makefile` has been used to orchestrate the steps required to create setup a DBT project. Where these steps consist of:
+A `Makefile` has been used to orchestrate the steps required to create setup a DBT project. Where these steps consist of:
 
 1) Installing DBT using brew (if required)
 2) Initialising a DBT project (`dbt_project.yml`), including steps to:
     * populating parameterized args
     * copy predefined:
-        - DBT profiles (`profiles.yml`)
+        - dbt profiles (`profiles.yml`)
         - models
         - tests
         - and sources (within `schema.yml` file)
@@ -37,9 +37,9 @@ A `makefile` has been used to orchestrate the steps required to create setup a D
 
 ## 2. Getting started
 
-## Prerequisites
+### Prerequisites
 
-### Makefile variables
+#### Makefile variables
 
 To run the automation script, the 4 variables (below) at the top of the `Makefile` need to be assigned values. The purpose of these variables is as follows:
 
@@ -73,6 +73,8 @@ The steps involved in building and executing involve:
     * `PROGRAM`
     * and `DBT_MODEL`
 2) and run `make`!
+
+Note: to avoid the `deps` step, just run `make install`.
 
 ---
 

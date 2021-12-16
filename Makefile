@@ -1,4 +1,6 @@
-all: init_dbt_project setup_dbt_project_file validate_conn copy_dbt_project_files
+SHELL = /bin/sh
+
+all: installations
 
 # airflow input args
 export DBT_PROFILE_NAME=#e.g., eg_profile_name
@@ -6,15 +8,32 @@ export DBT_PROJECT_NAME=#e.g., dbt_demo_eg
 export DBT_MODEL=#e.g., curated_db
 export PROGRAM=#e.g., DBT_DEMO_EG
 
+installations: deps install clean
+
+.PHONY: deps
 deps:
 	$(info [+] Install dependencies (dbt))
-	pip install --upgrade dbt
-	brew install gettext
-	brew link --force gettext
-	brew install gnu-sed
-	brew install jq
-	pip install envsubst
+	@pip install --upgrade dbt
+	@brew install gettext
+	@brew link --force gettext
+	@brew install gnu-sed
+	@brew install jq
+	@pip install envsubst
 
+.PHONY: install
+install:
+	@make init_dbt_project
+	@make setup_dbt_project_file
+	@make validate_conn
+	@make copy_dbt_project_files
+
+.PHONY: clean
+clean:
+	$(info [+] Remove any redundant files, e.g. downloads)
+
+#############################################################################################
+# Targets used for dbt setup
+#############################################################################################
 init_dbt_project:
 	$(info [+] Initialise dbt project)
 	@echo
@@ -46,10 +65,6 @@ setup_dbt_project_file:
 	@sed -i -e 's/my_new_project/${DBT_PROJECT_NAME}/g' ${DBT_PROJECT_NAME}/dbt_project.yml
 	@rm ${DBT_PROJECT_NAME}/dbt_project.yml-e
 
-validate_conn:
-	$(info [+] Verify the connection to the source DB)
-	cd ${DBT_PROJECT_NAME} && dbt debug --profiles-dir=profiles
-
 ins_sub_projects:
 	$(info [+] Install 'child' dbt projects)
 	@cd ${DBT_PROJECT_NAME} && dbt deps --profiles-dir=profiles
@@ -58,6 +73,13 @@ copy_dbt_project_files:
 	$(info [+] Copy generated dbt project files to parent 'dbt' folder)
 	@cp -r ${DBT_PROJECT_NAME} ../../
 	@rm -r ${DBT_PROJECT_NAME}
+
+#############################################################################################
+# dbt-specific operations
+#############################################################################################
+validate_conn:
+	$(info [+] Verify the connection to the source DB)
+	cd ${DBT_PROJECT_NAME} && dbt debug --profiles-dir=profiles
 
 run_model:
 	$(info [+] Run the DBT model)
