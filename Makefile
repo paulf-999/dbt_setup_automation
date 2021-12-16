@@ -10,7 +10,6 @@ export PROGRAM=#e.g., DBT_DEMO_EG
 
 installations: deps install clean
 
-.PHONY: deps
 deps:
 	$(info [+] Install dependencies (dbt))
 	@pip install --upgrade dbt
@@ -19,17 +18,18 @@ deps:
 	@brew install gnu-sed
 	@brew install jq
 	@pip install envsubst
+.PHONY: deps
 
-.PHONY: install
 install:
 	@make init_dbt_project
 	@make setup_dbt_project_file
 	@make validate_conn
 	@make copy_dbt_project_files
+.PHONY: install
 
-.PHONY: clean
 clean:
 	$(info [+] Remove any redundant files, e.g. downloads)
+.PHONY: clean
 
 #############################################################################################
 # Targets used for dbt setup
