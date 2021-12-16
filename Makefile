@@ -50,15 +50,14 @@ validate_conn:
 	$(info [+] Verify the connection to the source DB)
 	cd ${DBT_PROJECT_NAME} && dbt debug --profiles-dir=profiles
 
+ins_sub_projects:
+	$(info [+] Install 'child' dbt projects)
+	@cd ${DBT_PROJECT_NAME} && dbt deps --profiles-dir=profiles
+
 copy_dbt_project_files:
 	$(info [+] Copy generated dbt project files to parent 'dbt' folder)
 	@cp -r ${DBT_PROJECT_NAME} ../../
 	@rm -r ${DBT_PROJECT_NAME}
-	@rm -r ../../${DBT_PROJECT_NAME}/dbt_sub_projects
-
-ins_sub_projects:
-	$(info [+] Install 'child' dbt projects)
-	@cd ${DBT_PROJECT_NAME} && dbt deps --profiles-dir=profiles
 
 run_model:
 	$(info [+] Run the DBT model)
