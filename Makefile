@@ -63,7 +63,6 @@ setup_dbt_project_file:
 	@sed -i -e "s/profile: 'default'/profile: '${DBT_PROFILE_NAME}'/g" ${DBT_PROJECT_NAME}/dbt_project.yml
 	# change project name in dbt_project.yml file
 	@sed -i -e 's/my_new_project/${DBT_PROJECT_NAME}/g' ${DBT_PROJECT_NAME}/dbt_project.yml
-	@rm ${DBT_PROJECT_NAME}/dbt_project.yml-e
 
 ins_sub_projects:
 	$(info [+] Install 'child' dbt projects)
